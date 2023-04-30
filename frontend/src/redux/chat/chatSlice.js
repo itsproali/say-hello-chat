@@ -33,6 +33,8 @@ const chatSlice = createSlice({
     },
 
     addMessage: (state, { payload }) => {
+      if (state.messages.find((m) => m._id === payload._id)) return;
+
       state.messages.push(payload);
     },
 

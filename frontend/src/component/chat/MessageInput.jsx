@@ -6,15 +6,19 @@ import { MdFace } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import axiosInstance from "../../utils/axios";
 import { addMessage } from "../../redux/chat/chatSlice";
+import { getSocket } from "../../socket/index";
 
 const MessageInput = () => {
   const {
-    chat: { chat },
+    chat: { chat, selectedChatUser },
     user: { _id },
   } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const socket = getSocket();
+
   const [message, setMessage] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
+
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
   };
@@ -26,13 +30,24 @@ const MessageInput = () => {
   const id = open ? "simple-popover" : undefined;
 
   const handleSend = async () => {
-    const { data } = await axiosInstance.post("/message/add", {
+    const messageData = {
       message,
       chatId: chat._id,
       senderId: _id,
       type: "text",
-    });
-    dispatch(addMessage(data?.data));
+    };
+
+    try {
+      const { data } = await axiosInstance.post("/message/add", messageData);
+
+      socket.emit("sendMessage", {
+        ...data?.data,
+        receiverId: selectedChatUser._id,
+      });
+      dispatch(addMessage(data?.data));
+    } catch (error) {
+      console.log(error);
+    }
     setMessage("");
   };
 

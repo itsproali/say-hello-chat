@@ -1,16 +1,22 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setMessages } from "../../redux/chat/chatSlice";
+import { addMessage, setMessages } from "../../redux/chat/chatSlice";
 import axiosInstance from "../../utils/axios";
 import MessageItem from "./MessageItem";
+import { getSocket } from "../../socket/index";
 
 const MessageList = () => {
-  const { chat, messages } = useSelector((state) => state.chat);
+  const {
+    user: { _id },
+    chat: { chat, messages },
+  } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const socket = getSocket();
   const [messageCount, setMessageCount] = useState(0);
   const bottomRef = useRef();
 
+  // Get messages
   useEffect(() => {
     const getMessages = async () => {
       const { data } = await axiosInstance.get(`/message/get/${chat._id}`);
@@ -23,9 +29,20 @@ const MessageList = () => {
     }
   }, [chat]);
 
+  // Scroll to bottom
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  // Get New Message
+  useEffect(() => {
+    socket.on("getMessage", (data) => {
+      if (data?.receiverId === _id) {
+        dispatch(addMessage(data));
+        setMessageCount((prev) => prev + 1);
+      }
+    });
+  }, []);
 
   return (
     <>
