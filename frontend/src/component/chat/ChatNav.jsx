@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography, TextField } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { useGetUserChatsQuery } from "@/redux/chat/chatApi";
@@ -13,7 +13,8 @@ const ChatNav = () => {
     chat: { chats, activeUsers },
   } = useSelector((state) => state);
   const dispatch = useDispatch();
-  // const [chats, setChats] = React.useState([]);
+  // const [chats, setChats] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const getChats = async () => {
@@ -26,6 +27,11 @@ const ChatNav = () => {
   // const { data, isLoading } = useGetUserChatsQuery(_id, {
   //   skip: _id ? false : true,
   // });
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    console.log(e.target.value);
+  };
 
   return (
     <Box
@@ -50,15 +56,31 @@ const ChatNav = () => {
         },
       }}
     >
-      <Typography
-        variant="h5"
-        sx={{
-          fontSize: 22,
-          fontWeight: 600,
-        }}
-      >
-        Chats
-      </Typography>
+      <Stack direction="row" alignItems="center" spacing={1.5}>
+        <Typography
+          variant="h5"
+          sx={{
+            fontSize: 22,
+            fontWeight: 600,
+          }}
+        >
+          Chats
+        </Typography>
+
+        <TextField
+          type="text"
+          label="Find User"
+          size="small"
+          autoComplete="off"
+          fullWidth
+          sx={{
+            ".MuiOutlinedInput-notchedOutline": {
+              borderRadius: 5,
+            },
+          }}
+          onChange={handleSearch}
+        />
+      </Stack>
 
       <Stack
         direction="column"

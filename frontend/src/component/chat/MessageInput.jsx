@@ -40,11 +40,13 @@ const MessageInput = () => {
     try {
       const { data } = await axiosInstance.post("/message/add", messageData);
 
-      socket.emit("sendMessage", {
-        ...data?.data,
-        receiverId: selectedChatUser._id,
-      });
-      dispatch(addMessage(data?.data));
+      if (data?.success) {
+        socket.emit("sendMessage", {
+          ...data?.data,
+          receiverId: selectedChatUser._id,
+        });
+        dispatch(addMessage(data?.data));
+      }
     } catch (error) {
       console.log(error);
     }
