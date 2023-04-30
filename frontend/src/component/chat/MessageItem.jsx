@@ -2,7 +2,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-const MessageItem = ({ message }) => {
+const MessageItem = ({ message, index }) => {
   const { _id } = useSelector((state) => state.user);
   const [isMine, setIsMine] = useState(false);
 
@@ -17,7 +17,7 @@ const MessageItem = ({ message }) => {
       direction="row"
       alignItems="center"
       justifyContent={isMine ? "flex-end" : "flex-start"}
-      sx={{ my: 0.5 }}
+      sx={{ my: 0.5, mt: `${index === 0 ? "auto" : "inherit"}` }}
     >
       <Box
         sx={{

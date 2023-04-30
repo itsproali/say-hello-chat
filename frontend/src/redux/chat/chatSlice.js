@@ -5,6 +5,7 @@ const initialState = {
   chat: {},
   selectedChatUser: {},
   activeUsers: [],
+  messages: [],
 };
 
 const chatSlice = createSlice({
@@ -27,6 +28,14 @@ const chatSlice = createSlice({
       state.activeUsers = payload;
     },
 
+    setMessages: (state, { payload }) => {
+      state.messages = payload;
+    },
+
+    addMessage: (state, { payload }) => {
+      state.messages.push(payload);
+    },
+
     resetChat: () => initialState,
   },
 });
@@ -36,6 +45,8 @@ export const {
   setSelectedChatUser,
   setChat,
   setActiveUsers,
+  setMessages,
+  addMessage,
   resetChat,
 } = chatSlice.actions;
 export default chatSlice.reducer;

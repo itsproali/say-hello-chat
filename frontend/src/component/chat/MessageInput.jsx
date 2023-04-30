@@ -3,14 +3,16 @@ import EmojiPicker from "emoji-picker-react";
 import { useState } from "react";
 import { BsImage } from "react-icons/bs";
 import { MdFace } from "react-icons/md";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axiosInstance from "../../utils/axios";
+import { addMessage } from "../../redux/chat/chatSlice";
 
 const MessageInput = () => {
   const {
     chat: { chat },
     user: { _id },
   } = useSelector((state) => state);
+  const dispatch = useDispatch();
   const [message, setMessage] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (e) => {
@@ -30,6 +32,7 @@ const MessageInput = () => {
       senderId: _id,
       type: "text",
     });
+    dispatch(addMessage(data?.data));
     setMessage("");
   };
 

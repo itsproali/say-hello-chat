@@ -1,19 +1,20 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setMessages } from "../../redux/chat/chatSlice";
 import axiosInstance from "../../utils/axios";
 import MessageItem from "./MessageItem";
 
 const MessageList = () => {
-  const { chat } = useSelector((state) => state.chat);
-  const [messages, setMessages] = useState([]);
+  const { chat, messages } = useSelector((state) => state.chat);
+  const dispatch = useDispatch();
   const [messageCount, setMessageCount] = useState(0);
   const bottomRef = useRef();
 
   useEffect(() => {
     const getMessages = async () => {
       const { data } = await axiosInstance.get(`/message/get/${chat._id}`);
-      setMessages(data?.data);
+      dispatch(setMessages(data?.data));
       setMessageCount(data?.messageCount);
     };
 
@@ -68,9 +69,10 @@ const MessageList = () => {
       ) : (
         <Stack
           direction="column"
-          justifyContent="flex-end"
+          // justifyContent="flex-end"
           sx={{
             height: "calc(100vh - 230px)",
+            py: 0.5,
             mb: 2,
             overflowY: "auto",
             "&::-webkit-scrollbar": {
@@ -85,8 +87,8 @@ const MessageList = () => {
             },
           }}
         >
-          {messages?.map((message) => (
-            <MessageItem key={message._id} message={message} />
+          {messages?.map((message, i) => (
+            <MessageItem key={message._id} index={i} message={message} />
           ))}
           <Box ref={bottomRef}></Box>
         </Stack>
