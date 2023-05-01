@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axiosInstance from "../../utils/axios";
 import { addMessage } from "../../redux/chat/chatSlice";
 import { getSocket } from "../../socket/index";
+import { IoSend } from "react-icons/io5";
 
 const MessageInput = () => {
   const {
@@ -127,19 +128,15 @@ const MessageInput = () => {
           </IconButton>
         </Stack>
 
-        <Button
-          variant="contained"
+        <IconButton
           onClick={handleSend}
           sx={{
-            bgcolor: "primary.main",
-            color: "white",
-            "&:hover": {
-              bgcolor: "primary.dark",
-            },
+            color: "primary.main",
+            border: "none",
           }}
         >
-          Send
-        </Button>
+          <IoSend size={25} />
+        </IconButton>
       </Box>
     </>
   );

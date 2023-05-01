@@ -38,7 +38,7 @@ const ChatLayout = ({}) => {
         width: "100vw",
         bgcolor: "#F3F5FF",
         color: "#000",
-        p: 2,
+        p: {xs: 1, md: 2},
       }}
     >
       <TopBar />

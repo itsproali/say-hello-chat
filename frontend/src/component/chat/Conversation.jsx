@@ -7,12 +7,15 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setChat, setSelectedChatUser } from "../../redux/chat/chatSlice";
 import axiosInstance from "../../utils/axios";
 // import { useGetUserInfoQuery } from "@/redux/user/userApi";
 
 const Conversation = ({ chatUserId, chat, isOnline }) => {
+  const {
+    chat: { selectedChatUser },
+  } = useSelector((state) => state);
   const [chatUser, setChatUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
@@ -66,8 +69,9 @@ const Conversation = ({ chatUserId, chat, isOnline }) => {
         width: "100%",
         px: 2,
         py: 1,
-        boxShadow: "none",
-        bgcolor: "#F3F5FF99",
+      boxShadow: "none",
+        bgcolor:
+          chatUserId === selectedChatUser?._id ? "#bbdefb44" : "#F3F5FF99",
         "&:hover": {
           bgcolor: "#bbdefb44",
           boxShadow: "none",

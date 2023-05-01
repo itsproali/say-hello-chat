@@ -17,7 +17,7 @@ const Chat = () => {
           item
           md={3}
           sx={{
-            height: "calc(100vh - 70px)",
+            height: { xs: "calc(100vh - 50px)", md: "calc(100vh - 70px)" },
             display: { xs: "none", md: "inherit" },
           }}
         >
@@ -25,7 +25,14 @@ const Chat = () => {
         </Grid>
 
         {/* chat details */}
-        <Grid item xs={12} md={9} sx={{ height: "calc(100vh - 70px)" }}>
+        <Grid
+          item
+          xs={12}
+          md={9}
+          sx={{
+            height: { xs: "calc(100vh - 50px)", md: "calc(100vh - 70px)" },
+          }}
+        >
           <Box
             sx={{
               width: "100%",
@@ -49,6 +56,7 @@ const Chat = () => {
                 <Typography
                   variant="h5"
                   sx={{
+                    textAlign: "center",
                     fontSize: 25,
                     fontWeight: 600,
                   }}

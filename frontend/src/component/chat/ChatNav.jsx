@@ -41,10 +41,10 @@ const ChatNav = () => {
           height: "100%",
           bgcolor: "white",
           overflowY: "auto",
-          borderRadius: 3,
+          borderRadius: { xs: 0, md: 3 },
           py: 3,
           px: 2,
-          boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.15)",
+          boxShadow: { xs: "none", md: "0px 0px 10px 0px rgba(0,0,0,0.15)" },
           "&::-webkit-scrollbar": {
             width: "0.4em",
           },

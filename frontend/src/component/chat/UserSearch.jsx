@@ -42,7 +42,7 @@ const UserSearch = ({ handleClose }) => {
     handleClose();
   };
   return (
-    <Box sx={{ width: { xs: "95vh", sm: 400 }, height: "50vh", py: 2 }}>
+    <Box sx={{ width: { xs: "90vw", sm: 400 }, height: "50vh", py: 2 }}>
       <TextField
         type="text"
         label="Find User"
