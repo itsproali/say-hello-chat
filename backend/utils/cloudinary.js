@@ -12,7 +12,7 @@ const cloudinaryUpload = async (fileName, filePath) => {
 
     // Upload
     const response = await cloudinary.uploader.upload(filePath, {
-      folder: "say_hello",
+      folder: "say_hello/users",
       public_id: fileName,
     });
 
