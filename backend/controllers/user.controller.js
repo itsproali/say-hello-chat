@@ -23,6 +23,10 @@ exports.createUser = catchAsyncErrors(async (req, res, next) => {
     name,
   });
 
+  // Create a chat with admin
+  const chat = await createChatHelper(user._id, "60b9b1b9e1b9c72a3c8b0b7b");
+  console.log(chat);
+
   res.status(200).json({
     success: true,
     data: {

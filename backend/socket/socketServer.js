@@ -37,7 +37,8 @@ const socketServer = (server) => {
     // Send and Get Message
     socket.on("sendMessage", (data) => {
       const receiver = findUser(data?.receiverId);
-      io.to(receiver.socketId).emit("getMessage", data);
+      if (!receiver) return console.log("Receiver Not Found");
+      io.to(receiver?.socketId).emit("getMessage", data);
     });
 
     // User Disconnect

@@ -1,12 +1,11 @@
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const Chat = require("../models/chat.model");
+const createChatHelper = require("../utils/createChatHelper");
 
 exports.createChat = catchAsyncErrors(async (req, res, next) => {
   const { firstId, secondId } = req.body;
 
-  const chat = await Chat.create({
-    members: [firstId, secondId],
-  });
+  const chat = await createChatHelper(firstId, secondId);
 
   res.status(200).json({
     success: true,
