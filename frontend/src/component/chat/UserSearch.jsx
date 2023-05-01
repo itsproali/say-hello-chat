@@ -15,10 +15,12 @@ import { useCreateChatMutation } from "../../redux/chat/chatApi";
 import { addChatUser, setSelectedChatUser } from "../../redux/chat/chatSlice";
 
 const UserSearch = ({ handleClose }) => {
-  const { user } = useSelector((state) => state);
+  const {
+    user,
+    chat: { activeUsers },
+  } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [keyword, setKeyword] = useState("");
-  const isOnline = true;
 
   const { data, isLoading } = useFindUsersQuery({ userId: user?._id, keyword });
   const [createChat, { data: chat, isSuccess }] = useCreateChatMutation();
@@ -62,89 +64,92 @@ const UserSearch = ({ handleClose }) => {
         </Typography>
 
         <Stack direction="column" spacing={1} sx={{ mt: 2 }}>
-          {data?.data?.map((user) => (
-            <Button
-              key={user._id}
-              variant="contained"
-              onClick={() => handleClick(user)}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-start",
-                gap: 2,
-                cursor: "pointer",
-                width: "100%",
-                px: 2,
-                py: 1,
-                boxShadow: "none",
-                bgcolor: "#F3F5FF99",
-                "&:hover": {
-                  bgcolor: "#bbdefb44",
+          {data?.data?.map((user) => {
+            const isOnline = activeUsers?.some((u) => u._id === user._id);
+            return (
+              <Button
+                key={user._id}
+                variant="contained"
+                onClick={() => handleClick(user)}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-start",
+                  gap: 2,
+                  cursor: "pointer",
+                  width: "100%",
+                  px: 2,
+                  py: 1,
                   boxShadow: "none",
-                },
-              }}
-            >
-              {isLoading ? (
-                <Skeleton variant="circular">
-                  <Avatar />
-                </Skeleton>
-              ) : (
-                <Badge
-                  overlap="circular"
-                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                  variant="dot"
-                  sx={{
-                    "& .MuiBadge-badge": {
-                      backgroundColor: isOnline ? "#44b700" : "#aaa",
-                      color: isOnline ? "#44b700" : "#aaa",
-                      boxShadow: (theme) =>
-                        `0 0 0 2px ${theme.palette.background.paper}`,
-                    },
-                  }}
-                >
-                  <Avatar alt={user?.name} src={user?.avatar} />
-                </Badge>
-              )}
-
-              <Stack
-                direction="column"
-                justifyContent="flex-start"
-                alignItems="flex-start"
+                  bgcolor: "#F3F5FF99",
+                  "&:hover": {
+                    bgcolor: "#bbdefb44",
+                    boxShadow: "none",
+                  },
+                }}
               >
                 {isLoading ? (
-                  <Skeleton width="100%">
-                    <Typography>
-                      ----------------------------------------
-                    </Typography>
+                  <Skeleton variant="circular">
+                    <Avatar />
                   </Skeleton>
                 ) : (
-                  <>
-                    <Typography
-                      variant="h6"
-                      sx={{
-                        color: "dark.main",
-                        fontSize: 18,
-                        fontWeight: 600,
-                      }}
-                    >
-                      {user?.name || "No name"}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        color: "Grey",
-                        fontSize: 12,
-                        fontWeight: 400,
-                        textTransform: "lowercase",
-                      }}
-                    >
-                      {user?.email || "example@gmail.com"}
-                    </Typography>
-                  </>
+                  <Badge
+                    overlap="circular"
+                    anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                    variant="dot"
+                    sx={{
+                      "& .MuiBadge-badge": {
+                        backgroundColor: isOnline ? "#44b700" : "#aaa",
+                        color: isOnline ? "#44b700" : "#aaa",
+                        boxShadow: (theme) =>
+                          `0 0 0 2px ${theme.palette.background.paper}`,
+                      },
+                    }}
+                  >
+                    <Avatar alt={user?.name} src={user?.avatar} />
+                  </Badge>
                 )}
-              </Stack>
-            </Button>
-          ))}
+
+                <Stack
+                  direction="column"
+                  justifyContent="flex-start"
+                  alignItems="flex-start"
+                >
+                  {isLoading ? (
+                    <Skeleton width="100%">
+                      <Typography>
+                        ----------------------------------------
+                      </Typography>
+                    </Skeleton>
+                  ) : (
+                    <>
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          color: "dark.main",
+                          fontSize: 18,
+                          fontWeight: 600,
+                        }}
+                      >
+                        {user?.name || "No name"}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: "Grey",
+                          fontSize: 12,
+                          fontWeight: 400,
+                          textTransform: "lowercase",
+                        }}
+                      >
+                        {user?.email || "example@gmail.com"}
+                      </Typography>
+                    </>
+                  )}
+                </Stack>
+              </Button>
+            );
+          })}
         </Stack>
       </Box>
     </Box>
