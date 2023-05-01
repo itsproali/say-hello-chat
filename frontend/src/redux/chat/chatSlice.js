@@ -16,6 +16,11 @@ const chatSlice = createSlice({
       state.chats = payload;
     },
 
+    addChatUser: (state, { payload }) => {
+      if (state.chats.find((c) => c._id === payload._id)) return;
+      state.chats = [payload, ...state.chats];
+    },
+
     setChat: (state, { payload }) => {
       state.chat = payload;
     },
@@ -50,5 +55,6 @@ export const {
   setMessages,
   addMessage,
   resetChat,
+  addChatUser,
 } = chatSlice.actions;
 export default chatSlice.reducer;

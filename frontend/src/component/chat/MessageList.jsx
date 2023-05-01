@@ -9,7 +9,7 @@ import { getSocket } from "../../socket/index";
 const MessageList = () => {
   const {
     user: { _id },
-    chat: { chat, messages },
+    chat: { chat, messages, selectedChatUser },
   } = useSelector((state) => state);
   const dispatch = useDispatch();
   const socket = getSocket();
@@ -37,7 +37,10 @@ const MessageList = () => {
   // Get New Message
   useEffect(() => {
     socket.on("getMessage", (data) => {
-      if (data?.receiverId === _id) {
+      if (
+        data?.receiverId === _id &&
+        data?.senderId === selectedChatUser?._id
+      ) {
         dispatch(addMessage(data));
         setMessageCount((prev) => prev + 1);
       }

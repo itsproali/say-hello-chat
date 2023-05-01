@@ -64,6 +64,12 @@ const userApi = apiBase.injectEndpoints({
       //   }
       // },
     }),
+
+    findUsers: builder.query({
+      query: ({ keyword, userId }) => ({
+        url: `/user/find?userId=${userId}&keyword=${keyword}`,
+      }),
+    }),
   }),
 });
 
@@ -72,4 +78,5 @@ export const {
   useLoginUserMutation,
   useGetUserInfoQuery,
   useUpdateAvatarMutation,
+  useFindUsersQuery,
 } = userApi;

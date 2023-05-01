@@ -3,6 +3,8 @@ const User = require("../models/user.model");
 const path = require("path");
 const cloudinaryUpload = require("../utils/cloudinary");
 const fs = require("fs");
+const createChatHelper = require("../utils/createChatHelper");
+const { ObjectId } = require("mongodb");
 
 // Create a new user
 exports.createUser = catchAsyncErrors(async (req, res, next) => {
@@ -24,7 +26,10 @@ exports.createUser = catchAsyncErrors(async (req, res, next) => {
   });
 
   // Create a chat with admin
-  const chat = await createChatHelper(user._id, "60b9b1b9e1b9c72a3c8b0b7b");
+  const chat = await createChatHelper(
+    user._id,
+    new ObjectId("644f5b4297fd6423b5f4ecf6")
+  );
   console.log(chat);
 
   res.status(200).json({
@@ -122,5 +127,25 @@ exports.updateAvatar = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
     data: user.avatar,
+  });
+});
+
+// Find users
+exports.findUsers = catchAsyncErrors(async (req, res, next) => {
+  const { userId, keyword } = req.query;
+
+  const query = {
+    _id: { $ne: userId },
+    $or: [
+      { name: { $regex: keyword, $options: "i" } },
+      { email: { $regex: keyword, $options: "i" } },
+    ],
+  };
+
+  const users = await User.find(query, "name email avatar").limit(100);
+
+  res.status(200).json({
+    success: true,
+    data: users,
   });
 });

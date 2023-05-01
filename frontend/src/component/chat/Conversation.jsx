@@ -7,18 +7,15 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setChat, setSelectedChatUser } from "../../redux/chat/chatSlice";
-import { getSocket } from "../../socket/index";
 import axiosInstance from "../../utils/axios";
 // import { useGetUserInfoQuery } from "@/redux/user/userApi";
 
 const Conversation = ({ chatUserId, chat, isOnline }) => {
-  const user = useSelector((state) => state.user);
   const [chatUser, setChatUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
-  const socket = getSocket();
   // const { data: chat, isSuccess } = useGetChatQuery(user._id, chatUserId, {
   //   skip: user._id && chatUserId ? false : true,
   // });

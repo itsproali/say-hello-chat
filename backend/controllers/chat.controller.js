@@ -5,6 +5,21 @@ const createChatHelper = require("../utils/createChatHelper");
 exports.createChat = catchAsyncErrors(async (req, res, next) => {
   const { firstId, secondId } = req.body;
 
+  // Check if chat already exists
+  const prev = await Chat.findOne({
+    members: {
+      $all: [firstId, secondId],
+    },
+  });
+
+  if (prev) {
+    return res.status(302).json({
+      success: false,
+      message: "Chat already exists",
+      data: prev,
+    });
+  }
+
   const chat = await createChatHelper(firstId, secondId);
 
   res.status(200).json({
@@ -20,7 +35,7 @@ exports.getUserChats = catchAsyncErrors(async (req, res, next) => {
     members: {
       $in: [userId],
     },
-  });
+  }).sort({ updatedAt: -1 });
 
   res.status(200).json({
     success: true,

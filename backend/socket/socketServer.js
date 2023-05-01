@@ -36,6 +36,7 @@ const socketServer = (server) => {
 
     // Send and Get Message
     socket.on("sendMessage", (data) => {
+      console.log(data);
       const receiver = findUser(data?.receiverId);
       if (!receiver) return console.log("Receiver Not Found");
       io.to(receiver?.socketId).emit("getMessage", data);
