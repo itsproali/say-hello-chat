@@ -13,12 +13,19 @@ const Chat = () => {
     <>
       <Grid container spacing={2}>
         {/* chat left */}
-        <Grid item xs={3} sx={{ height: "calc(100vh - 70px)" }}>
+        <Grid
+          item
+          md={3}
+          sx={{
+            height: "calc(100vh - 70px)",
+            display: { xs: "none", md: "inherit" },
+          }}
+        >
           <ChatNav />
         </Grid>
 
         {/* chat details */}
-        <Grid item xs={9} sx={{ height: "calc(100vh - 70px)" }}>
+        <Grid item xs={12} md={9} sx={{ height: "calc(100vh - 70px)" }}>
           <Box
             sx={{
               width: "100%",

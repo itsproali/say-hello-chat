@@ -42,7 +42,7 @@ const UserSearch = ({ handleClose }) => {
     handleClose();
   };
   return (
-    <Box sx={{ width: 400, height: "50vh", py: 2 }}>
+    <Box sx={{ width: { xs: "95vh", sm: 400 }, height: "50vh", py: 2 }}>
       <TextField
         type="text"
         label="Find User"
@@ -53,6 +53,17 @@ const UserSearch = ({ handleClose }) => {
         sx={{
           ".MuiOutlinedInput-notchedOutline": {
             borderRadius: 5,
+          },
+          overflowY: "auto",
+          "&::-webkit-scrollbar": {
+            width: "0.4em",
+          },
+          "&::-webkit-scrollbar-track": {
+            WebkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "rgba(0,0,0,.1)",
+            borderRadius: "20px",
           },
         }}
         onChange={handleSearch}

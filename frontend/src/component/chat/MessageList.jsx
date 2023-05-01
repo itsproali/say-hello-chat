@@ -43,7 +43,7 @@ const MessageList = () => {
       ) {
         dispatch(addMessage(data));
         setMessageCount((prev) => prev + 1);
-      }
+      } else return;
     });
   }, []);
 

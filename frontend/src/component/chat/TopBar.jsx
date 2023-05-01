@@ -7,6 +7,7 @@ import logo from "../../assets/chat.png";
 import { resetChat } from "../../redux/chat/chatSlice";
 import { useUpdateAvatarMutation } from "../../redux/user/userApi";
 import { logout, updateAvatarUrl } from "../../redux/user/userSlice";
+// import { GrMenu } from "react-icons/gr";
 
 const TopBar = () => {
   const user = useSelector((state) => state.user);
@@ -64,7 +65,11 @@ const TopBar = () => {
     navigate("/");
   };
   return (
-    <Stack direction="row" justifyContent="space-between" sx={{ mb: 2, px: 2 }}>
+    <Stack
+      direction="row"
+      justifyContent="space-between"
+      sx={{ mb: 2, px: { xs: 0, md: 2 } }}
+    >
       <Stack
         direction="row"
         alignItems="center"
@@ -75,9 +80,13 @@ const TopBar = () => {
           component="img"
           src={logo}
           alt="logo"
-          sx={{ width: 40, height: 40 }}
+          sx={{ width: { xs: 25, md: 40 }, height: { xs: 25, md: 40 } }}
         />
-        <Typography variant="h3" sx={{ fontSize: 30, fontWeight: 600 }}>
+        {/* <GrMenu/> */}
+        <Typography
+          variant="h3"
+          sx={{ fontSize: { xs: 25, md: 30 }, fontWeight: 600 }}
+        >
           Say Hello
         </Typography>
       </Stack>

@@ -30,6 +30,7 @@ const MessageInput = () => {
   const id = open ? "simple-popover" : undefined;
 
   const handleSend = async () => {
+    if (!message) return;
     const messageData = {
       message,
       chatId: chat._id,
