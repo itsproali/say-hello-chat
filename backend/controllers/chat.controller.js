@@ -1,9 +1,11 @@
+const { ObjectId } = require("mongodb");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const Chat = require("../models/chat.model");
 const createChatHelper = require("../utils/createChatHelper");
 
 exports.createChat = catchAsyncErrors(async (req, res, next) => {
-  const { firstId, secondId } = req.body;
+  const firstId = new ObjectId(req.body.firstId);
+  const secondId = new ObjectId(req.body.secondId);
 
   // Check if chat already exists
   const prev = await Chat.findOne({
