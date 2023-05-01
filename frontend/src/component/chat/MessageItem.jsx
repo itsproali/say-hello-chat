@@ -26,7 +26,7 @@ const MessageItem = ({ message, index }) => {
           justifyContent: "center",
           flexDirection: "column",
           width: "fit-content",
-          maxWidth: "60%",
+          maxWidth: { xs: "85%", md: "60%" },
           bgcolor: isMine ? "primary.main" : "grey.100",
           color: isMine ? "white" : "black",
           mr: 1,

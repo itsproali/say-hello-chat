@@ -87,7 +87,7 @@ const ChatNav = () => {
         <Stack
           direction="column"
           alignItems="flex-start"
-          spacing={1}
+          spacing={.5}
           sx={{ mt: 2 }}
         >
           {chats?.map((chat, i) => {

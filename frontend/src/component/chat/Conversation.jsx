@@ -69,11 +69,12 @@ const Conversation = ({ chatUserId, chat, isOnline }) => {
         width: "100%",
         px: 2,
         py: 1,
-      boxShadow: "none",
-        bgcolor:
-          chatUserId === selectedChatUser?._id ? "#bbdefb44" : "#F3F5FF99",
+        boxShadow: "none",
+        // bgcolor:
+        //   chatUserId === selectedChatUser?._id ? "#bbdefb44" : "#F3F5FF99",
+        bgcolor: chatUserId === selectedChatUser?._id ? "#F3F5FF99" : "white",
         "&:hover": {
-          bgcolor: "#bbdefb44",
+          bgcolor: "#F3F5FF99",
           boxShadow: "none",
         },
       }}
