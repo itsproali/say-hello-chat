@@ -4,7 +4,6 @@ const path = require("path");
 const cloudinaryUpload = require("../utils/cloudinary");
 const fs = require("fs");
 const createChatHelper = require("../utils/createChatHelper");
-const { ObjectId } = require("mongodb");
 
 // Create a new user
 exports.createUser = catchAsyncErrors(async (req, res, next) => {
@@ -27,8 +26,8 @@ exports.createUser = catchAsyncErrors(async (req, res, next) => {
 
   // Create a chat with admin
   const chat = await createChatHelper(
-    user._id,
-    new ObjectId("644f5b4297fd6423b5f4ecf6")
+    user._id.toString(),
+    "644f5b4297fd6423b5f4ecf6"
   );
   console.log(chat);
 
