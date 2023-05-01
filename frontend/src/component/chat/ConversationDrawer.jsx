@@ -1,33 +1,46 @@
 import React from "react";
 import ChatNav from "./ChatNav";
-import { Box, Divider, Stack, Typography } from "@mui/material";
+import { Box, Divider, IconButton, Stack, Typography } from "@mui/material";
 import logo from "../../assets/chat.png";
+import { IoIosArrowBack } from "react-icons/io";
 
-const ConversationDrawer = () => {
+const ConversationDrawer = ({ closeDrawer }) => {
   return (
     <>
       <Stack
         direction="row"
         alignItems="center"
+        justifyContent="space-between"
         spacing={1}
-        sx={{ cursor: "pointer", p: 2 }}
+        sx={{ p: 1 }}
       >
-        <Box
-          component="img"
-          src={logo}
-          alt="logo"
-          sx={{ width: { xs: 25, md: 40 }, height: { xs: 25, md: 40 } }}
-        />
-        <Typography
-          variant="h3"
-          sx={{ fontSize: { xs: 25, md: 30 }, fontWeight: 600 }}
+        <Stack
+          direction="row"
+          alignItems="center"
+          spacing={1}
+          sx={{ cursor: "pointer" }}
         >
-          Say Hello
-        </Typography>
+          <Box
+            component="img"
+            src={logo}
+            alt="logo"
+            sx={{ width: { xs: 25, md: 40 }, height: { xs: 25, md: 40 } }}
+          />
+          <Typography
+            variant="h3"
+            sx={{ fontSize: { xs: 25, md: 30 }, fontWeight: 600 }}
+          >
+            Say Hello
+          </Typography>
+        </Stack>
+
+        <IconButton onClick={closeDrawer}>
+          <IoIosArrowBack />
+        </IconButton>
       </Stack>
 
       <Divider />
-      <ChatNav />
+      <ChatNav closeDrawer={closeDrawer} />
     </>
   );
 };

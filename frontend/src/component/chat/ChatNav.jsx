@@ -9,7 +9,7 @@ import ModalWrapper from "../common/ModalWrapper";
 import Conversation from "./Conversation";
 import UserSearch from "./UserSearch";
 
-const ChatNav = () => {
+const ChatNav = ({ closeDrawer }) => {
   const {
     user: { _id },
     chat: { chats, activeUsers },
@@ -87,7 +87,7 @@ const ChatNav = () => {
         <Stack
           direction="column"
           alignItems="flex-start"
-          spacing={.5}
+          spacing={0.5}
           sx={{ mt: 2 }}
         >
           {chats?.map((chat, i) => {
@@ -95,6 +95,7 @@ const ChatNav = () => {
             const isOnline = activeUsers?.some((u) => u?.userId === chatUserId);
             return (
               <Conversation
+                closeDrawer={closeDrawer}
                 chatUserId={chatUserId}
                 chat={chat}
                 key={i}

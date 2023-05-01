@@ -31,6 +31,9 @@ const TopBar = () => {
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
+  const closeDrawer = () => {
+    setDrawerOpen(false);
+  };
 
   // Right Side Popover menu
   const [anchorEl, setAnchorEl] = useState(null);
@@ -202,7 +205,7 @@ const TopBar = () => {
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
       >
-        <ConversationDrawer />
+        <ConversationDrawer closeDrawer={closeDrawer} />
       </Drawer>
     </>
   );

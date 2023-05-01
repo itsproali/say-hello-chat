@@ -12,7 +12,7 @@ import { setChat, setSelectedChatUser } from "../../redux/chat/chatSlice";
 import axiosInstance from "../../utils/axios";
 // import { useGetUserInfoQuery } from "@/redux/user/userApi";
 
-const Conversation = ({ chatUserId, chat, isOnline }) => {
+const Conversation = ({ chatUserId, chat, isOnline, closeDrawer }) => {
   const {
     chat: { selectedChatUser },
   } = useSelector((state) => state);
@@ -53,6 +53,7 @@ const Conversation = ({ chatUserId, chat, isOnline }) => {
   // }, [chatUserId]);
 
   const handleClick = () => {
+    closeDrawer();
     dispatch(setSelectedChatUser(chatUser));
     dispatch(setChat(chat));
   };
