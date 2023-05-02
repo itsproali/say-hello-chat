@@ -53,7 +53,7 @@ const Conversation = ({ chatUserId, chat, isOnline, closeDrawer }) => {
   // }, [chatUserId]);
 
   const handleClick = () => {
-    closeDrawer();
+    closeDrawer && closeDrawer();
     dispatch(setSelectedChatUser(chatUser));
     dispatch(setChat(chat));
   };
