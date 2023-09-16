@@ -1,6 +1,6 @@
 # SayHello - A Minimalistic MERN Chat Application
 
-#### [Live Site](https://say-hello-chat.vercel.app/)
+#### Live Site: [https://say-hello-chat.vercel.app/](https://say-hello-chat.vercel.app/)
 
 ### Description:
 "SayHello" is a straightforward and user-friendly chat application built using the MERN stack (MongoDB, Express.js, React, and Node.js). This project aims to provide a clean and intuitive platform for real-time communication between users. With a focus on simplicity and ease of use, SayHello offers the following features:
